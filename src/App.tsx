@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import Todo from './Components/Todo'
+import TodoApp from './components/TodoApp'
 
 function App () {
   const StyledTodoApp = styled.div`
@@ -11,7 +11,7 @@ function App () {
     overflow: hidden;
   `
   return <StyledTodoApp>
-    <Todo />
+    <TodoApp />
   </StyledTodoApp>
 }
 
