@@ -4,7 +4,7 @@ import styled from 'styled-components'
 type Props = {
   hidden?: boolean,
   checked?: boolean,
-  onClick?: () => unknown,
+  toggle?: (e?: unknown) => unknown,
 }
 
 const StyledIcon = styled.div`
@@ -17,13 +17,13 @@ const StyledIcon = styled.div`
   padding-bottom: 4px;
 `
 
-function IconCheck ({ hidden, checked, onClick }: Props) {
+function IconCheck ({ hidden, checked, toggle = () => {} }: Props) {
   return <StyledIcon>
     <FaRegCheckCircle
       visibility={hidden ? 'hidden' : 'visible'}
       color={checked ? 'black' : 'lightgrey'}
       cursor="pointer"
-      onClick={() => onClick?.()}
+      onClick={toggle}
     />
   </StyledIcon>
 }

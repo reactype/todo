@@ -4,6 +4,9 @@ import styled from 'styled-components'
 import TodoItem from './TodoItem'
 
 const StyledTodoList = styled.ul`
+  padding: 0;
+  margin: 0;
+  background-color: white ;
 `
 function TodoList () {
   const todoList = useAppSelector(state => state.todoList)
@@ -12,7 +15,7 @@ function TodoList () {
   }
 
   return <StyledTodoList>
-    { todoList.map((todoItem, idx) => <TodoItem item={todoItem} key={idx} />) }
+    { todoList.map((todoItem) => <TodoItem todo={todoItem} key={todoItem.id} />) }
   </StyledTodoList>
 }
 

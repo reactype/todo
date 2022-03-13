@@ -1,9 +1,8 @@
 import { useState, useCallback, ChangeEventHandler ,KeyboardEventHandler } from 'react'
 import { useAppSelector, useAppDispatch } from '../store/hooks'
-import { addTodo, toggleAll } from '../store/store'
+import { Action } from '../store/store'
 
 import styled from 'styled-components'
-import { FaRegCheckCircle } from 'react-icons/fa'
 import IconCheck from './IconCheck'
 
 const StyledTodoInput = styled.div`
@@ -45,7 +44,9 @@ function TodoInput () {
 
   const onEnterPressed: KeyboardEventHandler = useCallback((e) => {
     if (e.key !== 'Enter') return
-    dispatch(addTodo(todo))
+    if (todo.trim() === '') return
+
+    dispatch(Action.addTodo(todo))
     setTodo('')
   }, [todo, dispatch])
 
@@ -56,7 +57,7 @@ function TodoInput () {
   return <StyledTodoInput>
     <IconCheck hidden={!hasTodoList}
                checked={isAllChecked}
-               onClick={() => dispatch(toggleAll())} />
+               toggle={() => dispatch(Action.toggleAll())} />
     <input type="text"
            placeholder="What needs to be done?"
            value={todo}

@@ -36,12 +36,22 @@ export const slice = createSlice({
         todo.done = !isAllChecked
       })
     },
+    updateTodoContent (state, action: PayloadAction<TodoItemType>) {
+      const nextTodo = action.payload
+      const todoItem = state.todoList.find((item) => item.id === nextTodo.id)
+      if (!todoItem) return
+      if (nextTodo.content.trim() === '') {
+        // 여기서 removeTodo를 dispatch할 방법이 없을까..?
+        state.todoList = state.todoList.filter(item => item.id !== nextTodo.id)
+        console.log(state.todoList)
+        return
+      }
+      todoItem.content = nextTodo.content
+    },
   },
 })
 
-export const {
-  addTodo, removeTodo, toggleTodo, toggleAll,
-} = slice.actions
+export const Action = slice.actions
 
 const enhancedReducer = persistReducer({
   key: 'root',
