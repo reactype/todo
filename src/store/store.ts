@@ -30,10 +30,19 @@ export const slice = createSlice({
       if (!todoItem) return
       todoItem.done = !todoItem.done
     },
+    toggleAll (state) {
+      const isAllChecked = state.todoList.every(todo => todo.done)
+      state.todoList.forEach(todo => {
+        todo.done = !isAllChecked
+      })
+    },
   },
 })
 
-export const { addTodo, removeTodo, toggleTodo } = slice.actions
+export const {
+  addTodo, removeTodo, toggleTodo, toggleAll,
+} = slice.actions
+
 const enhancedReducer = persistReducer({
   key: 'root',
   storage,
