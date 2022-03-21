@@ -1,4 +1,4 @@
-import { useAppSelector } from '../store/hooks'
+import { useTodoSelector } from '../store/hooks'
 import styled from 'styled-components'
 
 import TodoItem from './TodoItem'
@@ -9,13 +9,13 @@ const StyledTodoList = styled.ul`
   background-color: white ;
 `
 function TodoList () {
-  const todoList = useAppSelector(state => state.todoList)
-  if (todoList.length === 0) {
+  const { hasTodoList, filteredTodoList } = useTodoSelector()
+  if (!hasTodoList) {
     return <></>
   }
 
   return <StyledTodoList>
-    { todoList.map((todoItem) => <TodoItem todo={todoItem} key={todoItem.id} />) }
+    { filteredTodoList.map((todoItem) => <TodoItem todo={todoItem} key={todoItem.id} />) }
   </StyledTodoList>
 }
 

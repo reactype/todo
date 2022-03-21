@@ -2,6 +2,7 @@ import styled from 'styled-components'
 
 import TodoInput from './TodoInput'
 import TodoList from './TodoList'
+import TodoFilter from './TodoFilter'
 
 const StyledTodoHeader = styled.header`
   color: rgba(175, 47, 47, 0.15);
@@ -23,6 +24,7 @@ function TodoBody () {
   return <StyledTodoBody>
     <TodoInput />
     <TodoList />
+    <TodoFilter />
   </StyledTodoBody>
 }
 

@@ -1,5 +1,5 @@
 import { ChangeEventHandler, KeyboardEventHandler, useCallback, useEffect, useRef, useState } from 'react'
-import { useAppDispatch } from '../store/hooks'
+import { useTodoDispatch } from '../store/hooks'
 import { Action, TodoItemType } from '../store/store'
 
 import classNames from 'classnames'
@@ -56,7 +56,7 @@ const DeleteButton = styled(FaTrashAlt)`
 
 type Props = { todo: TodoItemType }
 function TodoItem ({ todo }: Props) {
-  const dispatch = useAppDispatch()
+  const dispatch = useTodoDispatch()
   const [draft, setDraft] = useState(todo.content)
   const [isEditMode, setEditMode] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)

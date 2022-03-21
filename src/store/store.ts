@@ -2,6 +2,14 @@ import { createStore, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
+export type FilterType = 'ALL' | 'ACTIVE' | 'COMPLETED'
+/* 객채 내부 값의 타입은 as 없이 어떻게 설정해야할까요..? */
+export const FILTER = {
+  ALL: 'ALL' as FilterType,
+  ACTIVE: 'ACTIVE' as FilterType,
+  COMPLETED: 'COMPLETED' as FilterType,
+}
+
 export type TodoItemType = {
   id: number,
   content: string,
@@ -11,6 +19,7 @@ export const slice = createSlice({
   name: 'todo',
   initialState: {
     todoList: [] as Array<TodoItemType>,
+    todoFilter: FILTER.ALL as FilterType,
   },
   reducers: {
     addTodo (state, action: PayloadAction<string>) {
@@ -48,6 +57,12 @@ export const slice = createSlice({
       }
       todoItem.content = nextTodo.content
     },
+    setFilterType (state, action: PayloadAction<FilterType>) {
+      state.todoFilter = action.payload
+    },
+    clearCompletedTodoList (state) {
+      state.todoList = state.todoList.filter(_ => !_.done)
+    },
   },
 })
 
@@ -62,6 +77,6 @@ export const store = createStore(enhancedReducer)
 export const persistor = persistStore(store)
 
 export type RootStateType = ReturnType<typeof store.getState>
-export type AppDispatchType = typeof store.dispatch
+export type DispatchType = typeof store.dispatch
 
 export default store

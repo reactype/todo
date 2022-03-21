@@ -1,5 +1,5 @@
 import { useState, useCallback, ChangeEventHandler ,KeyboardEventHandler } from 'react'
-import { useAppSelector, useAppDispatch } from '../store/hooks'
+import { useTodoSelector, useTodoDispatch } from '../store/hooks'
 import { Action } from '../store/store'
 
 import styled from 'styled-components'
@@ -33,14 +33,11 @@ const StyledTodoInput = styled.div`
 
 function TodoInput () {
   const [todo, setTodo] = useState('')
-  const dispatch = useAppDispatch()
+  const dispatch = useTodoDispatch()
   const {
     hasTodoList,
     isAllChecked,
-  } = useAppSelector(state => ({
-    hasTodoList: Boolean(state.todoList.length),
-    isAllChecked: state.todoList.every(todo => todo.done)
-  }))
+  } = useTodoSelector()
 
   const onEnterPressed: KeyboardEventHandler = useCallback((e) => {
     if (e.key !== 'Enter') return
